@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJS 13-beta
+This is a summary of some of the most relevant changes in the different sections of the framework
 
-## Getting Started
+For more details please refer to the documentation: https://beta.nextjs.org/docs/getting-started
 
-First, run the development server:
+## Routing in app directory
+The app directory only render as pages the files named as ```pages.js``` so you can use the app folder not only for pages, you can also add components, stylesheets, test, etc.
 
-```bash
-npm run dev
-# or
-yarn dev
+Each folder represent a segment of the path, last folder should contain the page file (leaf segment).
+
+![image](https://assets.vercel.com/image/upload/f_auto,q_100,w_1600/v1666568300/nextjs-docs/darkmode/route-segments-to-path-segments.png)
+
+
+##### https://beta.nextjs.org/docs/routing/fundamentals
+
+---
+
+## Special Files
+
+![image](https://assets.vercel.com/image/upload/f_auto,q_100,w_1600/v1666568300/nextjs-docs/darkmode/special-files.png)
+
+* page.js: The page view component, also used for set the path as public.
+
+* layout.js: UI shared across multiple pages. A layout accepts another layout or a page as its child. You can nest layouts to create nested routes.
+
+* loading.js (optional):  used to create loading UI for a specific part of an app.
+
+* error.js (optional): used to isolate errors to specific parts of an app.
+
+* template.js (optional): similar to layouts, but on navigation, a new instance of the component is mounted and the state is not shared.
+
+* head.js (optional): used to define the contents of the <head> tag for a given route.
+
+* not-found.js (optional): used to render UI when the notFound function in thrown within a route segment.
+
+## Client and Server components
+
+Normally if the component requires functionality found in the browser (such as ```useEffect```, or ```useState```) you should use a client component with the ```"use client"``` directive, otherwise a server component.
+
+## Image
+Back to classic, if you use local images must import it whit the ```import``` keyword (```await import``` or ```require``` not supported).
+If you are using a remote image you should continue using width and height properties.
+* Local: 
+```
+import imageSample from 'public/sample.jpeg';
+
+<Image src={imageSample} alt="Sample" />
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* Remote: 
+```
+<Image src="https://files.io/sample" alt="Sample" width="320" height="480" />
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Fonts
+You can import local or remote fonts with or without variants (for example Inter font only exists in 400, it is a font without other variants, on the contrary Poppins has some variants in weight and even styles like italic.
+In any case, if the font has more than one weight variant you must specify which one you want, the styles are optional by normal default
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```
+import { Poppins } from '@next/font/google';
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+const poppins = Poppins({ weight: '400', subsets: ['latin'] });
 
-## Learn More
+<html lang="en" className={poppins.className}>
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -1,0 +1,23 @@
+.button {
+  border: 1px solid #6b0000;
+  background-color: #333333;
+  color: #fffbe1;
+  padding: 8px 12px;
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  border: 1px solid #333333;
+  background-color: #6b0000;
+  color: #fffbe1;
+}
+
+.button:disabled {
+  border: 1px solid #333333;
+  background-color: #030303;
+  color: #fffbe1;
+}
